@@ -1,0 +1,22 @@
+{
+  "name": "malin-bg",
+  "version": "1.0.0",
+  "description": "Brandon's SDC project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sdc-team-malin/malin-bg.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sdc-team-malin/malin-bg/issues"
+  },
+  "homepage": "https://github.com/sdc-team-malin/malin-bg#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
