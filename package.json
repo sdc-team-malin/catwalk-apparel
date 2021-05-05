@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/sdc-team-malin/malin-bg#readme",
   "dependencies": {
+    "csv-parser": "^3.0.0",
     "express": "^4.17.1"
   }
 }
