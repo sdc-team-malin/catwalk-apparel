@@ -1,6 +1,6 @@
 .env
 node_modules
-csv-cleaning/features/features.csv
+csv-cleaning/products/features.csv
 csv-cleaning/products/product.csv
 csv-cleaning/products/related.csv
 csv-cleaning/styles/styles.csv
