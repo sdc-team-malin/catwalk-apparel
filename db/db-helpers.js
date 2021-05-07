@@ -25,6 +25,14 @@ module.exports = {
       }
       var dbo = db.db("mydb");
       const result = dbo.collection("products").findOne({_id: `${index}`}, function(err, item) {
+        if (err) {
+          throw err
+        }
+        if (!item) {
+          callback([]);
+          db.close();
+          return
+        }
         delete item.related_product
         callback(item)
         db.close();
@@ -34,34 +42,35 @@ module.exports = {
   getStyles: function(product_id, callback) {
     MongoClient.connect(url, function(err, db) {
       if (err) {
-        console.log('here')
         throw err;
       }
       var dbo = db.db("mydb");
       dbo.collection("styles").find({productId: `${product_id}`}).toArray(function(err, item) {
-        console.log('here')
-        // const { name, sale_price, original_price, default_style, photos, skus } = item;
-        // for (let i = 0; i < photos.length; i++) {
-        //   photos[i] = {
-        //     "thumbnail_url": photos[i][1],
-        //     "url": photos[i][0]
-        //   }
-        // }
-        // const newObj = {
-        //   product_id: item.productId,
-        //   results: [
-        //     {
-        //       style_id: item._id,
-        //       name,
-        //       sale_price,
-        //       original_price,
-        //       default: default_style,
-        //       photos,
-        //       skus
-        //     }
-        //   ]
-        // }
+        if (err) {
+          throw err
+        }
         callback(item)
+        db.close();
+      })
+    })
+  },
+
+  getRelatedItems: function(index, callback) {
+    MongoClient.connect(url, function(err, db) {
+      if (err) {
+        throw err;
+      }
+      var dbo = db.db("mydb");
+      const result = dbo.collection("products").findOne({_id: `${index}`}, function(err, item) {
+        if (err) {
+          throw err;
+        }
+        if (!item) {
+          callback([]);
+          db.close();
+          return;
+        }
+        callback(item.related_product)
         db.close();
       })
     })

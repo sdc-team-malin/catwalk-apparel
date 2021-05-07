@@ -22,6 +22,10 @@ app.get('/products', (req, res) => {
 app.get('/products/:product_id', (req, res) => {
   const product_id = req.params.product_id;
   dbHelpers.getOneProduct(product_id, (result) => {
+    if (!result._id) {
+      res.json([])
+      return;
+    };
     res.json(result)
   })
 })
@@ -29,7 +33,10 @@ app.get('/products/:product_id', (req, res) => {
 app.get('/products/:product_id/styles', (req, res) => {
   const product_id = req.params.product_id;
   dbHelpers.getStyles(product_id, (results) => {
-    console.log(results)
+    if (!results.length) {
+      res.json([])
+      return;
+    };
     const allStyles = {
       'product_id': results[0].productId,
       results: []
@@ -62,6 +69,18 @@ app.get('/products/:product_id/styles', (req, res) => {
     })
 
     res.json(allStyles);
+  })
+})
+
+app.get('/products/:product_id/related', (req, res) => {
+  const productId = req.params.product_id;
+
+  dbHelpers.getRelatedItems(productId, (result) => {
+    if (!result.length) {
+      res.json([])
+      return;
+    };
+    res.json(result)
   })
 })
 
