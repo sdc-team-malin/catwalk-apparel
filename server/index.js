@@ -11,10 +11,14 @@ app.use(bodyParser.urlencoded({
 }))
 
 app.get('/products', (req, res) => {
-  let count = req.query.page || 5;
+  let count = req.query.count || 5;
   let page = req.query.page || 0;
 
   dbHelpers.getAllProducts(count, page, (result) => {
+    for (let i = 0; i < result.length; i++) {
+      result[i].id = Number(result[i]._id);
+      delete result[i]._id;
+    }
     res.json(result)
   })
 })
@@ -26,6 +30,8 @@ app.get('/products/:product_id', (req, res) => {
       res.json([])
       return;
     };
+    result.id = result._id;
+    delete result._id
     res.json(result)
   })
 })
@@ -74,7 +80,6 @@ app.get('/products/:product_id/styles', (req, res) => {
 
 app.get('/products/:product_id/related', (req, res) => {
   const productId = req.params.product_id;
-
   dbHelpers.getRelatedItems(productId, (result) => {
     if (!result.length) {
       res.json([])

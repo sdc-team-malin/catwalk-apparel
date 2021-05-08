@@ -8,7 +8,7 @@ module.exports = {
         throw err;
       }
       var dbo = db.db("mydb");
-      dbo.collection("products").find({}).limit(count).skip(page).toArray(function(err, res) {
+      dbo.collection("products").find({}).limit(Number(count)).skip(page*count).toArray(function(err, res) {
         if (err) throw err;
         for (let i = 0; i < count; i++) {
           delete res[i].related_product;
