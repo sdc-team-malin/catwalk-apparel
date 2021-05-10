@@ -49,13 +49,21 @@ app.get('/products/:product_id/styles', (req, res) => {
     }
 
     results.map(result => {
-      const { name, sale_price, original_price, default_style, photos, skus } = result;
+      let { name, sale_price, original_price, default_style, photos, skus } = result;
       for (let i = 0; i < photos.length; i++) {
         photos[i] = {
           "thumbnail_url": photos[i][1],
           "url": photos[i][0]
         }
       }
+      if (sale_price === 'null') {
+        sale_price = null;
+      } else {
+        sale_price+= '.00'
+      }
+
+      original_price+='.00'
+
       let currentDefault;
       if (default_style === '1') {
         currentDefault = true;
@@ -92,3 +100,5 @@ app.get('/products/:product_id/related', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Listening to app on port ${PORT}`)
 })
+
+module.exports = app

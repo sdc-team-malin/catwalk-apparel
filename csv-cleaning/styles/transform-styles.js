@@ -1,7 +1,7 @@
 const fs = require('fs');
 const csv = require('csv-parser');
 var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/mydb";
+var url = "mongodb://mongo:27017/mydb";
 
 const result = [];
 const photos = [];

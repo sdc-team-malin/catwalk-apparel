@@ -4,7 +4,7 @@
   "description": "Brandon's SDC project",
   "main": "index.js",
   "scripts": {
-    "test": "jest __tests__/unit-tests.js --detectOpenHandles",
+    "test": "jest",
     "start": "nodemon server/index.js"
   },
   "repository": {
@@ -27,7 +27,8 @@
     "mongodb": "^3.6.6",
     "nodemon": "^2.0.7",
     "pg": "^8.6.0",
-    "sinon": "^10.0.0"
+    "sinon": "^10.0.0",
+    "supertest": "^6.1.3"
   },
   "devDependencies": {
     "eslint": "^7.25.0",

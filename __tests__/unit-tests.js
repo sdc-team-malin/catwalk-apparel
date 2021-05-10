@@ -3,7 +3,9 @@
 // const expect = chai.expect;
 // const mocha = require('mocha')
 var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/mydb";
+var url = "mongodb://mongo:27017/mydb";
+const supertest = require('supertest');
+const app = require('../server/index')
 
 const routes = require('./../server/index.js');
 const mockData = require('./../assets/mockData');
@@ -33,7 +35,7 @@ describe("Connection", () => {
     }
   })
 
-  test('retrieve the first 5 products', async () => {
+  test('retrieve the first 5 products from mongo', async () => {
     const result = await dbCall.getAllProducts(5, 0, (res) => {
       for (let i = 0; i < res.length; i++) {
         res[i].id = Number(res[i]._id);
@@ -42,6 +44,19 @@ describe("Connection", () => {
       }
     })
   })
+
+  test('GET /products at defaults', async () => {
+
+    await supertest(app).get('/products')
+      .expect(200)
+      .then((response) => {
+        console.log(response.body)
+        expect(Array.isArray(response.body)).toBeTruthy();
+        expect(response.body.length).toEqual(5);
+      })
+  })
+
+  // test('GET one product by ')
 
   afterAll(async done => {
     done();
