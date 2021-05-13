@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const dbHelpers = require('./../db/db-helpers.js') //db/db-helpers.js
+require('newrelic');
+
 
 const app = express();
 const PORT = 3030;
@@ -9,6 +11,10 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
   extended: true,
 }))
+
+app.get('/', (req, res) => {
+  res.send('Working...')
+})
 
 app.get('/products', (req, res) => {
   let count = req.query.count || 5;
@@ -95,6 +101,10 @@ app.get('/products/:product_id/related', (req, res) => {
     };
     res.json(result)
   })
+})
+
+app.get('/loaderio-0bc13ac6abc22d8f6fb58a7f83ed169b', (req, res) => {
+  res.render()
 })
 
 app.listen(PORT, () => {
